@@ -5,4 +5,8 @@ public class Dragon {
     public Dragon(int level) {
         this.level = level;
     }
+
+    public int DealDamage() {
+        return 10;
+    }
 }

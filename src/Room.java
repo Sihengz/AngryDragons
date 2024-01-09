@@ -1,6 +1,7 @@
 public class Room {
     private Dragon[] dragons;
     private int numDragons;
+
     public Room() {
         numDragons = (int) (Math.random() * 2 + 1);
         dragons = new Dragon[numDragons];
