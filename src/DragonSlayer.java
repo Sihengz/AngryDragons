@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class DragonSlayer {
+    private int choice;
     private Player player;
     private Scanner scan = new Scanner(System.in);
     private Room currentRoom;
@@ -9,6 +10,7 @@ public class DragonSlayer {
     public void run() {
         intro();
         while (roomNumber < 6 && !gameOver) {
+            menu();
             roomCycle();
             roomNumber += 1;
         }
@@ -39,8 +41,10 @@ public class DragonSlayer {
 
     }
 
-    public String menu() {
-        String str = "";
-        return str;
+    public void menu() {
+        System.out.println("---------MENU---------");
+        System.out.println("(1) - fight next dragon");
+        choice = scan.nextInt();
+
     }
 }
