@@ -6,7 +6,15 @@ public class Dragon {
         this.level = level;
     }
 
-    public int DealDamage() {
-        return 10;
+    public int getHealth() {
+        return health;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+    }
+
+    public int attack() {
+        return (int) (level * 5 * Math.random() + 1);
     }
 }
