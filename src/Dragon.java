@@ -15,6 +15,6 @@ public class Dragon {
     }
 
     public int attack() {
-        return (int) (level * 5 * Math.random() + 1);
+        return (int) (level * 2 * Math.random() + 1);
     }
 }

@@ -1,12 +1,20 @@
 public class Sword {
     private int attackPower = 10;
-    private int dodgeRating = 20;
+    private double dodgeRating = 0.2;
 
     public int getAttackPower() {
         return attackPower;
     }
 
-    public int getDodgeRating() {
+    public double getDodgeRating() {
         return dodgeRating;
+    }
+
+    public void gainAttackPower(int attackPower) {
+        this.attackPower += attackPower;
+    }
+
+    public void gainDodgeRating(double dodgeRating) {
+        this.dodgeRating += dodgeRating;
     }
 }
