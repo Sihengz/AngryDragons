@@ -3,6 +3,8 @@ public class Player {
     private int health = 100;
     private int gold = 0;
     private Sword sword = new Sword();
+    private boolean hasHealthPotion = false;
+
 
     public Player(String name) {
         this.name = name;
@@ -46,6 +48,29 @@ public class Player {
         }
         return health <= 0;
 
+    }
+
+    public void search(Room room) {
+        if (hasHealthPotion) {
+            System.out.println("You only have enough hands to carry one potion and a sword");
+        } else if (Math.random() > 0.5 && !room.isSearched()) {
+            System.out.println("You found a health potion!!!!!");
+            hasHealthPotion = true;
+            room.setSearched(true);
+        } else {
+            System.out.println("No potions to be found, maybe search another room?");
+            room.setSearched(true);
+        }
+    }
+
+    public void drinkPotion() {
+        if (hasHealthPotion) {
+            health += 50;
+            System.out.println("Glub Glub");
+            System.out.println("You now have " + health + " health");
+        } else {
+            System.out.println("You don't have one!");
+        }
     }
 
     public Sword getSword() {

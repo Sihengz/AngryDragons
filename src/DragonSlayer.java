@@ -1,10 +1,10 @@
 import java.util.Scanner;
-
+// FIX ROOMS BEING WEIRD
 public class DragonSlayer {
     private int choice;
     private Player player;
     private Scanner scan = new Scanner(System.in);
-    private Room currentRoom;
+    private Room currentRoom = new Room("Outside", 0);
     private boolean gameOver = false;
     private int roomNumber = 1;
     private String[] RoomNames = {"Entrance", "Cavern", "Lair", "Hatchery", "Treasure Room"};
@@ -31,25 +31,52 @@ public class DragonSlayer {
 
     public void roomCycle() {
         currentRoom = new Room(RoomNames[roomNumber - 1]);
+        System.out.println("You enter the " + currentRoom.getName());
+        try {
+            Thread.sleep(2000);  // 2000 milliseconds, or 2 seconds
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+
         while (!currentRoom.allDragonsSlayed() && !gameOver) {
+            menu();
             Dragon dragon = currentRoom.getDragon();
             gameOver = player.fightDragon(dragon);
+            if (!gameOver) {
+                reward();
+            }
         }
 
         if (gameOver) {
             System.out.println("You Lose!!!!!!!!!!!!!!!!!!");
 
-        } else {
-            reward();
         }
 
     }
 
     private void menu() {
         System.out.println("---------MENU---------");
-        System.out.println("(1) - fight next dragon");
-        choice = scan.nextInt();
+        if (!currentRoom.allDragonsSlayed()) {
+            System.out.println("(1) - fight next dragon");
+        } else {
+            System.out.println("(1) - enter next room");
+        }
 
+        System.out.println("(2) - search room");
+        System.out.println("(3) - drink potion");
+        choice = scan.nextInt();
+        if (choice == 1) {
+
+        } else if (choice == 2) {
+            player.search(currentRoom);
+            menu();
+        } else if (choice == 3) {
+            player.drinkPotion();
+            menu();
+        } else {
+            System.out.println("Invalid choice\n");
+            menu();
+        }
     }
 
     private void reward() {
@@ -82,3 +109,4 @@ public class DragonSlayer {
         }
     }
 }
+
