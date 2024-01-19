@@ -1,5 +1,7 @@
 import java.util.Scanner;
-// FIX ROOMS BEING WEIRD
+// FIX RANDOMIZER IN ROOM
+// ADD SCORING
+// ADD UX STUFF
 public class DragonSlayer {
     private int choice;
     private Player player;
