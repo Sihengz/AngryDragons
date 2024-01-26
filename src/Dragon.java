@@ -10,6 +10,10 @@ public class Dragon {
         return health;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public void takeDamage(int damage) {
         health -= damage;
     }

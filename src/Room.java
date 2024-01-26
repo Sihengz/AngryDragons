@@ -7,7 +7,7 @@ public class Room {
 
     public Room(String name) {
         this.name = name;
-        numDragons = (int) (Math.random() * 2 + 1);
+        numDragons = (int) (Math.random() * 3 + 1);
         dragons = new Dragon[numDragons];
         for (int i = 0; i < numDragons; i++) {
             dragons[i] = getRandomDragon();
@@ -30,8 +30,13 @@ public class Room {
     }
 
     public boolean allDragonsSlayed() {
-        return (dragonNumber) > dragons.length - 1;
+        return dragonNumber > dragons.length - 1;
     }
+
+    public boolean roomComplete() {
+        return dragonNumber - 1 >= numDragons;
+    }
+
     public String getName() {
         return name;
     }
@@ -46,5 +51,9 @@ public class Room {
 
     public void setSearched(boolean searched) {
         this.searched = searched;
+    }
+
+    public int getNumDragons() {
+        return numDragons;
     }
 }

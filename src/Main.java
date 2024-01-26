@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        DragonSlayer game = new DragonSlayer();
-        game.run();
+        Game game = new Game();
+        game.startGame();
     }
 }

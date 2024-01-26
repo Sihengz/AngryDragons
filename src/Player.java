@@ -37,11 +37,16 @@ public class Player {
             boolean dodged = takeDamage(dragon.attack());
             dragon.takeDamage(damage);
 
-            System.out.println("Dragon takes " + damage + " damage!");
+            System.out.println("Dragon takes " + damage + " damage! 🐉");
             if (dodged) {
-                System.out.println(name + " dodged!!!");
+                System.out.println(name + " dodged!!! 🥾");
             } else {
-                System.out.println(name + " takes " + dragonDamage + " damage!");
+                System.out.println(name + " takes " + dragonDamage + " damage! 🩸");
+            }
+            try {
+                Thread.sleep(200);
+            } catch (Exception e) {
+                System.out.println("error");
             }
             System.out.println("Dragon has " + dragon.getHealth() + " health");
             System.out.println(name + " has " + health + " health\n");
@@ -65,9 +70,10 @@ public class Player {
 
     public void drinkPotion() {
         if (hasHealthPotion) {
-            health += 50;
+            health += (int) (Math.random() * 30) + 20;
             System.out.println("Glub Glub");
             System.out.println("You now have " + health + " health");
+            hasHealthPotion = false;
         } else {
             System.out.println("You don't have one!");
         }
@@ -87,6 +93,10 @@ public class Player {
 
     public int getHealth() {
         return health;
+    }
+
+    public boolean isHasHealthPotion() {
+        return hasHealthPotion;
     }
 
     public void setHealth(int health) {

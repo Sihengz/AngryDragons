@@ -1,7 +1,4 @@
 import java.util.Scanner;
-// FIX RANDOMIZER IN ROOM
-// ADD SCORING
-// ADD UX STUFF
 public class DragonSlayer {
     private int choice;
     private Player player;
@@ -10,15 +7,17 @@ public class DragonSlayer {
     private boolean gameOver = false;
     private int roomNumber = 1;
     private String[] RoomNames = {"Entrance", "Cavern", "Lair", "Hatchery", "Treasure Room"};
+    private Dragon dragon;
+
     public void run() {
         intro();
         while (roomNumber < 6 && !gameOver) {
-            menu();
             roomCycle();
             roomNumber += 1;
         }
         if (!gameOver) {
-            System.out.println("YOU WIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("YOU WIN!");
+            System.out.println("Score: " + calcScore());
         }
 
     }
@@ -34,6 +33,7 @@ public class DragonSlayer {
     public void roomCycle() {
         currentRoom = new Room(RoomNames[roomNumber - 1]);
         System.out.println("You enter the " + currentRoom.getName());
+        System.out.println(currentRoom.getNumDragons() + " dragons spawned");
         try {
             Thread.sleep(2000);  // 2000 milliseconds, or 2 seconds
         } catch (Exception e) {
@@ -41,16 +41,26 @@ public class DragonSlayer {
         }
 
         while (!currentRoom.allDragonsSlayed() && !gameOver) {
+            
+            dragon = currentRoom.getDragon();
             menu();
-            Dragon dragon = currentRoom.getDragon();
             gameOver = player.fightDragon(dragon);
             if (!gameOver) {
                 reward();
             }
+            try {
+                Thread.sleep(2000);  // 2000 milliseconds, or 2 seconds
+            } catch (Exception e) {
+                System.out.println("error");
+            }
+            ConsoleUtility.clearScreen();
+        
+
         }
 
         if (gameOver) {
-            System.out.println("You Lose!!!!!!!!!!!!!!!!!!");
+            System.out.println("You Lose!");
+            System.out.println("Score: " + calcScore());
 
         }
 
@@ -58,22 +68,27 @@ public class DragonSlayer {
 
     private void menu() {
         System.out.println("---------MENU---------");
-        if (!currentRoom.allDragonsSlayed()) {
-            System.out.println("(1) - fight next dragon");
-        } else {
-            System.out.println("(1) - enter next room");
-        }
-
+        System.out.println("(1) - fight next dragon");
         System.out.println("(2) - search room");
         System.out.println("(3) - drink potion");
+        System.out.println("(4) - view info");
         choice = scan.nextInt();
         if (choice == 1) {
-
+            ConsoleUtility.clearScreen();
         } else if (choice == 2) {
             player.search(currentRoom);
             menu();
         } else if (choice == 3) {
             player.drinkPotion();
+            menu();
+        } else if (choice == 4) {
+            System.out.println("Player health: " + ConsoleUtility.RED + player.getHealth() + ConsoleUtility.RESET);
+            System.out.println("Gold: " + ConsoleUtility.YELLOW +player.getGold() + ConsoleUtility.RESET);
+            System.out.println("Has health potion: " + player.isHasHealthPotion());
+            System.out.println("Sword attack: " + ConsoleUtility.CYAN + player.getSword().getAttackPower() + ConsoleUtility.RESET);
+            System.out.println("Sword dodge rating: " + ConsoleUtility.PURPLE +player.getSword().getDodgeRating() + ConsoleUtility.RESET);
+            System.out.println("Dragon level: " + ConsoleUtility.GREEN +dragon.getLevel() + ConsoleUtility.RESET);
+            System.out.println();
             menu();
         } else {
             System.out.println("Invalid choice\n");
@@ -109,6 +124,16 @@ public class DragonSlayer {
             player.setHealth((int) (50 - (player.getHealth() * (1.0/4.0))));
             System.out.println("Your health is now " + player.getHealth());
         }
+    }
+
+    public int calcScore() {
+        int score = 0;
+        if (!gameOver) {
+            score += 100;
+        }
+        score += player.getGold() * 5;
+        score += player.getHealth();
+        return score;
     }
 }
 
