@@ -30,6 +30,7 @@ public class DragonSlayer {
         System.out.println("Fight through the five rooms of the dragon den to get to the treasure");
     }
 
+    // Completes one room
     public void roomCycle() {
         currentRoom = new Room(RoomNames[roomNumber - 1]);
         System.out.println("You enter the " + currentRoom.getName());
@@ -64,36 +65,6 @@ public class DragonSlayer {
 
         }
 
-    }
-
-    private void menu() {
-        System.out.println("---------MENU---------");
-        System.out.println("(1) - fight next dragon");
-        System.out.println("(2) - search room");
-        System.out.println("(3) - drink potion");
-        System.out.println("(4) - view info");
-        choice = scan.nextInt();
-        if (choice == 1) {
-            ConsoleUtility.clearScreen();
-        } else if (choice == 2) {
-            player.search(currentRoom);
-            menu();
-        } else if (choice == 3) {
-            player.drinkPotion();
-            menu();
-        } else if (choice == 4) {
-            System.out.println("Player health: " + ConsoleUtility.RED + player.getHealth() + ConsoleUtility.RESET);
-            System.out.println("Gold: " + ConsoleUtility.YELLOW +player.getGold() + ConsoleUtility.RESET);
-            System.out.println("Has health potion: " + player.isHasHealthPotion());
-            System.out.println("Sword attack: " + ConsoleUtility.CYAN + player.getSword().getAttackPower() + ConsoleUtility.RESET);
-            System.out.println("Sword dodge rating: " + ConsoleUtility.PURPLE +player.getSword().getDodgeRating() + ConsoleUtility.RESET);
-            System.out.println("Dragon level: " + ConsoleUtility.GREEN +dragon.getLevel() + ConsoleUtility.RESET);
-            System.out.println();
-            menu();
-        } else {
-            System.out.println("Invalid choice\n");
-            menu();
-        }
     }
 
     private void reward() {
@@ -134,6 +105,37 @@ public class DragonSlayer {
         score += player.getGold() * 5;
         score += player.getHealth();
         return score;
+    }
+
+    //prints menu again if the option is not 1
+    private void menu() {
+        System.out.println("---------MENU---------");
+        System.out.println("(1) - fight next dragon");
+        System.out.println("(2) - search room");
+        System.out.println("(3) - drink potion");
+        System.out.println("(4) - view info");
+        choice = scan.nextInt();
+        if (choice == 1) {
+            ConsoleUtility.clearScreen();
+        } else if (choice == 2) {
+            player.search(currentRoom);
+            menu();
+        } else if (choice == 3) {
+            player.drinkPotion();
+            menu();
+        } else if (choice == 4) {
+            System.out.println("Player health: " + ConsoleUtility.RED + player.getHealth() + ConsoleUtility.RESET);
+            System.out.println("Gold: " + ConsoleUtility.YELLOW +player.getGold() + ConsoleUtility.RESET);
+            System.out.println("Has health potion: " + player.isHasHealthPotion());
+            System.out.println("Sword attack: " + ConsoleUtility.CYAN + player.getSword().getAttackPower() + ConsoleUtility.RESET);
+            System.out.println("Sword dodge rating: " + ConsoleUtility.PURPLE +player.getSword().getDodgeRating() + ConsoleUtility.RESET);
+            System.out.println("Dragon level: " + ConsoleUtility.GREEN +dragon.getLevel() + ConsoleUtility.RESET);
+            System.out.println();
+            menu();
+        } else {
+            System.out.println("Invalid choice\n");
+            menu();
+        }
     }
 }
 

@@ -14,6 +14,27 @@ public class Player {
         return name;
     }
 
+    public Sword getSword() {
+        return sword;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public boolean isHasHealthPotion() {
+        return hasHealthPotion;
+    }
+
+    public void setHealth(int health) {
+        this.health += health;
+    }
+
+
     public int attack() {
         double damage = sword.getAttackPower();
         damage *= (Math.random() + 0.2);
@@ -67,10 +88,10 @@ public class Player {
             room.setSearched(true);
         }
     }
-
+    // Health increases by 20 - 50
     public void drinkPotion() {
         if (hasHealthPotion) {
-            health += (int) (Math.random() * 30) + 20;
+            health += (int) (Math.random() * 31) + 20;
             System.out.println("Glub Glub");
             System.out.println("You now have " + health + " health");
             hasHealthPotion = false;
@@ -79,27 +100,8 @@ public class Player {
         }
     }
 
-    public Sword getSword() {
-        return sword;
-    }
-
-    public int getGold() {
-        return gold;
-    }
-
     public void gainGold(int gold) {
         this.gold += gold;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
-    public boolean isHasHealthPotion() {
-        return hasHealthPotion;
-    }
-
-    public void setHealth(int health) {
-        this.health += health;
-    }
 }
